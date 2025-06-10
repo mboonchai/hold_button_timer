@@ -1,0 +1,303 @@
+/* Basic button styling */
+#startButton {
+    border: 3px solid black;
+    position: relative;
+    padding: 10px 20px;
+    background-color: #f0f0f0;
+    cursor: pointer;
+    border-radius: 6px;
+    width: 200px;
+    height: 50px;
+    font-size: 16px;
+    font-weight: 500;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Add body styling to center the button */
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    background-color: #f8f8f8;
+    font-family: Arial, sans-serif;
+}
+
+/* Pseudo-elements for each border side and corners */
+#startButton::before,
+#startButton::after,
+#startButton .bottom-border,
+#startButton .left-border,
+#startButton .top-left-corner,
+#startButton .top-right-corner,
+#startButton .bottom-right-corner,
+#startButton .bottom-left-corner {
+    content: '';
+    position: absolute;
+    background-color: pink;
+    pointer-events: none;
+    opacity: 0;
+}
+
+/* Top border */
+#startButton::before {
+    top: -3px;
+    left: 3px; /* Start after the corner */
+    height: 3px;
+    width: 0;
+    z-index: 1;
+}
+
+/* Right border */
+#startButton::after {
+    top: 3px; /* Start after the corner */
+    right: -3px;
+    width: 3px;
+    height: 0;
+    z-index: 1;
+}
+
+/* Bottom border */
+#startButton .bottom-border {
+    bottom: -3px;
+    right: 3px; /* Start after the corner */
+    height: 3px;
+    width: 0;
+    z-index: 1;
+}
+
+/* Left border */
+#startButton .left-border {
+    bottom: 3px; /* Start after the corner */
+    left: -3px;
+    width: 3px;
+    height: 0;
+    z-index: 1;
+}
+
+/* Corner elements */
+#startButton .top-left-corner {
+    top: -3px;
+    left: -3px;
+    width: 6px;
+    height: 6px;
+    background-color: transparent; /* Start transparent */
+    border-top: 3px solid transparent;
+    border-left: 3px solid transparent;
+    border-top-left-radius: 6px;
+    transform-origin: top left;
+    box-sizing: border-box;
+    z-index: 1; /* Make sure the corner is visible above the button border */
+}
+
+#startButton .top-right-corner {
+    top: -3px;
+    right: -3px;
+    width: 6px;
+    height: 6px;
+    background-color: transparent;
+    border-top: 3px solid transparent;
+    border-right: 3px solid transparent;
+    border-top-right-radius: 6px;
+    transform-origin: top right;
+    box-sizing: border-box;
+    z-index: 1;
+}
+
+#startButton .bottom-right-corner {
+    bottom: -3px;
+    right: -3px;
+    width: 6px;
+    height: 6px;
+    background-color: transparent;
+    border-bottom: 3px solid transparent;
+    border-right: 3px solid transparent;
+    border-bottom-right-radius: 6px;
+    transform-origin: bottom right;
+    box-sizing: border-box;
+    z-index: 1;
+}
+
+#startButton .bottom-left-corner {
+    bottom: -3px;
+    left: -3px;
+    width: 6px;
+    height: 6px;
+    background-color: transparent;
+    border-bottom: 3px solid transparent;
+    border-left: 3px solid transparent;
+    border-bottom-left-radius: 6px;
+    transform-origin: bottom left;
+    box-sizing: border-box;
+    z-index: 1;
+}
+
+/* Animation classes */
+#startButton.animating .top-left-corner {
+    animation: drawTopLeftCorner 0.15s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+    opacity: 1;
+}
+
+#startButton.animating::before {
+    animation: drawTopBorder 0.6s ease-in-out forwards;
+    animation-delay: 0.13s; /* Slight overlap with corner completion */
+    opacity: 1;
+}
+
+#startButton.animating .top-right-corner {
+    animation: drawTopRightCorner 0.15s ease-in-out forwards;
+    animation-delay: 0.75s; /* Start after top border */
+    opacity: 1;
+}
+
+#startButton.animating::after {
+    animation: drawRightBorder 0.6s ease-in-out forwards;
+    animation-delay: 0.9s; /* Start after top-right corner */
+    opacity: 1;
+}
+
+#startButton.animating .bottom-right-corner {
+    animation: drawBottomRightCorner 0.15s ease-in-out forwards;
+    animation-delay: 1.5s; /* Start after right border */
+    opacity: 1;
+}
+
+#startButton.animating .bottom-border {
+    animation: drawBottomBorder 0.6s ease-in-out forwards;
+    animation-delay: 1.65s; /* Start after bottom-right corner */
+    opacity: 1;
+}
+
+#startButton.animating .bottom-left-corner {
+    animation: drawBottomLeftCorner 0.15s ease-in-out forwards;
+    animation-delay: 2.25s; /* Start after bottom border */
+    opacity: 1;
+}
+
+#startButton.animating .left-border {
+    animation: drawLeftBorder 0.6s ease-in-out forwards;
+    animation-delay: 2.4s; /* Start after bottom-left corner */
+    opacity: 1;
+}
+
+/* Individual animations for each border */
+@keyframes drawTopBorder {
+    0% { width: 0; opacity: 0.7; }
+    10% { opacity: 1; }
+    100% { width: calc(100% - 6px); opacity: 1; } /* Adjusted for corners */
+}
+
+@keyframes drawRightBorder {
+    0% { height: 0; opacity: 0.7; }
+    10% { opacity: 1; }
+    100% { height: calc(100% - 6px); opacity: 1; } /* Adjusted for corners */
+}
+
+@keyframes drawBottomBorder {
+    0% { width: 0; opacity: 0.7; }
+    10% { opacity: 1; }
+    100% { width: calc(100% - 6px); opacity: 1; } /* Adjusted for corners */
+}
+
+@keyframes drawLeftBorder {
+    0% { height: 0; opacity: 0.7; }
+    10% { opacity: 1; }
+    100% { height: calc(100% - 6px); opacity: 1; } /* Adjusted for corners */
+}
+
+/* Corner animations */
+@keyframes drawTopLeftCorner {
+    0% { 
+        border-top-color: transparent;
+        border-left-color: transparent;
+    }
+    40% {
+        border-top-color: transparent; /* Semi-transparent pink */
+        border-left-color: rgba(255, 192, 203, 0.5);
+    }
+    70% {
+        border-top-color: transparent;
+        border-left-color: pink;
+    }
+    85% {
+        border-top-color: rgba(255, 192, 203, 0.5);
+        border-left-color: pink;
+    }
+    100% {
+        border-top-color: pink;
+        border-left-color: pink;
+    }
+}
+
+@keyframes drawTopRightCorner {
+    0% { 
+        border-top-color: pink; /* Already has top border colored */
+        border-right-color: transparent;
+    }
+    25% {
+        border-top-color: pink;
+        border-right-color: transparent;
+    }
+    50% {
+        border-top-color: pink;
+        border-right-color: rgba(255, 192, 203, 0.5);
+    }
+    75% {
+        border-top-color: pink;
+        border-right-color: pink;
+    }
+    100% {
+        border-top-color: pink;
+        border-right-color: pink;
+    }
+}
+
+@keyframes drawBottomRightCorner {
+    0% { 
+        border-bottom-color: transparent;
+        border-right-color: pink; /* Already has right border colored */
+    }
+    25% {
+        border-bottom-color: transparent;
+        border-right-color: pink;
+    }
+    50% {
+        border-bottom-color: rgba(255, 192, 203, 0.5);
+        border-right-color: pink;
+    }
+    75% {
+        border-bottom-color: pink;
+        border-right-color: pink;
+    }
+    100% {
+        border-bottom-color: pink;
+        border-right-color: pink;
+    }
+}
+
+@keyframes drawBottomLeftCorner {
+    0% { 
+        border-bottom-color: pink; /* Already has bottom border colored */
+        border-left-color: transparent;
+    }
+    25% {
+        border-bottom-color: pink;
+        border-left-color: transparent;
+    }
+    50% {
+        border-bottom-color: pink;
+        border-left-color: rgba(255, 192, 203, 0.5);
+    }
+    75% {
+        border-bottom-color: pink;
+        border-left-color: pink;
+    }
+    100% {
+        border-bottom-color: pink;
+        border-left-color: pink;
+    }
+}
